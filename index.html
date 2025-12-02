@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Vote for Ciprian</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 20px; }
+        iframe { width: 100%; height: 900px; border: none; }
+    </style>
+</head>
+<body>
+    <h2>Vote for Ciprian Padure</h2>
+    <p>The form will auto-fill your choices. Just click <strong>Submit</strong>!</p>
+    <iframe id="formFrame" src="https://forms.office.com/Pages/ResponsePage.aspx?id=63LUOLsgGECg-KZLVs6Ogp5lSQ5QU0BFgKRCG_RYzH1UNjZYM1laRlVaREZIRTVJRjFYTEdKR0Y0Ni4u&origin=QRCode"></iframe>
+
+    <script>
+        function autoFillForm() {
+            const iframeDoc = document.getElementById('formFrame').contentDocument || document.getElementById('formFrame').contentWindow.document;
+
+            // Helper function to click an option by visible text
+            function clickOption(text) {
+                const elements = iframeDoc.querySelectorAll('div[role="radio"], div[role="checkbox"]');
+                for (let el of elements) {
+                    if (el.textContent.trim() === text) {
+                        el.click();
+                        break;
+                    }
+                }
+            }
+
+            // Helper function to fill text input
+            function fillText(text) {
+                const textAreas = iframeDoc.querySelectorAll('textarea, input[type="text"]');
+                if (textAreas.length > 0) {
+                    textAreas[textAreas.length - 1].value = text;
+                    textAreas[textAreas.length - 1].dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+
+            // Apply your answers
+            clickOption('Ciprian Padure'); // Q1
+            clickOption('Corporate');      // Q2
+            clickOption('Italia');         // Q3
+            clickOption('Schede');         // Q4
+            clickOption('Schede');         // Q5
+            clickOption('The Courage award'); // Q6
+            fillText('Per il supporto, combatimento, impegno e aiuta offerto a tutti noi.'); // Q7
+        }
+
+        // Wait for iframe to load
+        document.getElementById('formFrame').onload = function() {
+            setTimeout(autoFillForm, 3000); // Delay to allow form to render
+        };
+    </script>
+</body>
+</html>
